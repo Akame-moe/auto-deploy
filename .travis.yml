@@ -1,0 +1,22 @@
+language: python
+
+
+before_script:
+  - wget http://ftp.us.debian.org/debian/pool/main/s/sshpass/sshpass_1.06-1_amd64.deb
+  - sudo dpkg -i sshpass_1.06-1_amd64.deb
+  - python --version
+
+script:
+  - echo "building -akame"
+
+#DEPLOY_USER
+#DEPLOY_PASS
+#DEPLOY_HOST
+#DEPLOY_PORT
+###https://neemzy.org/articles/deploy-to-your-own-server-through-ssh-with-travis-ci
+after_success:
+  - echo "begin to deploy."
+  - export SSHPASS=${DEPLOY_PASS}
+  - sshpass -e -v scp -o "StrictHostKeyChecking no" -P ${DEPLOY_PORT} deploy.sh ${DEPLOY_USER}@${DEPLOY_HOST}:/home/akame/
+  - sshpass -e -v ssh -o "StrictHostKeyChecking no" -p ${DEPLOY_PORT} ${DEPLOY_USER}@${DEPLOY_HOST} /bin/bash /home/akame/deploy.sh
+  - echo "deploy task done."
