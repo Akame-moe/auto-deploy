@@ -6,7 +6,8 @@ def update_change_log():
         d = f.read()
         f.seek(0)
         f.truncate(0)
-        f.write('updated on {}.\n'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+        info = os.popen('git log --pretty=format:"%an <%ae>" -1').read().strip()
+        f.write('updated on {}.last commiter {}.\n'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'),info))
         f.write(d)
         
         
