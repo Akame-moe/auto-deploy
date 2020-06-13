@@ -1,0 +1,30 @@
+name: test
+#run while tag match v*
+on:
+  push:
+    branches:
+      - master
+
+env:
+  scu_key: xxxxxxxxxxxxxxxxxxxx
+
+defaults:
+  run:
+    shell: bash
+    
+jobs:
+  build_job:
+    name: echo sensitive info
+    runs-on: ubuntu-latest
+    steps:
+      - id: aa
+        name: echo
+        if: ${{ github.event_name == 'push' }}
+        continue-on-error: false
+        env:
+          ABC: ${{ secrets.ABC }}
+        run: |
+          echo "abcdef${ABC}ghijk" | base64
+          echo "abcdef${ABC}ghijk" | xxd -ps
+          
+          
