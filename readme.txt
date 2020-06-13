@@ -1,12 +1,1 @@
-add date.
-
-1212"eeeee" 
-"1591984664.9796894" 
-"1591984783.4474654" 
-
-1591984872.6375668
-1591985131.923397
-1591985305.1273036eeeeee
-eeeeee
-eeeeee
-balabala
+learning on write a pre-commit script.
